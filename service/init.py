@@ -64,10 +64,10 @@ def handle_xplane(input_data, serial_arduino):
              dref = arrOperationXplane[1].strip()
              status_dref = client_xplane.getDREF(dref)
              print("getDREF:", dref, status_dref)
-             toArduinoSerial = '<sim/cockpit2/controls/flap_ratio#'+str(status_dref[0])+'>'
+             #toArduinoSerial = '<sim/cockpit2/controls/flap_ratio#'+str(status_dref[0])+'>'
+             toArduinoSerial = '<'+dref+'#'+str(status_dref[0])+'>'
              print (toArduinoSerial.encode())
              serial_arduino.write(toArduinoSerial.encode())
-             # TODO: send {status_dref} to Arduino
     except:
         print("ERROR: reset client_xplane")
         print("Unexpected error:", sys.exc_info()[0])
