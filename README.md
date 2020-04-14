@@ -9,4 +9,5 @@ It allows to connect arduino with the x-plane through serial communication and t
 5. Keep your arduino board connected to a serial port
 6. Start a flight on the x-plane simulator
 7. Launch `python3 service/init.py --port COM3 --baud 9600`
+
 Arduino hardware and X-Plane are connected.
