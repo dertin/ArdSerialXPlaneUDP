@@ -1,6 +1,7 @@
+#  XPlaneConnect Version 1.3-rc.1 - https://github.com/nasa/XPlaneConnect
+
 import socket
 import struct
-
 
 class XPlaneConnect(object):
     """XPlaneConnect (XPC) facilitates communication to and from the XPCPlugin."""
