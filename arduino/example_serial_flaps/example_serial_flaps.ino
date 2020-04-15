@@ -6,14 +6,14 @@ boolean newData = false;
 
 // example code
 unsigned long previousMillisLedFlaps = 0;
-unsigned long previousMillisToggleFlaps = 0;
 const long intervalLedFlaps = 1000;
-const long intervalToggleFlaps = 3500;
-const int LED_PIN_FLAPS = 2;
-int currentFlapRatio = 0;
+const int LED_PIN_FLAPS = 7;
+const int BTN_PIN = 2;
+int currentFlapRatio = -1;
 
 void setup() {
   Serial.begin(9600);
+  pinMode(BTN_PIN, INPUT);
   pinMode(LED_PIN_FLAPS, OUTPUT);
 }
 
@@ -26,14 +26,14 @@ void loop() {
       previousMillisLedFlaps = currentMillis;
       Serial.println("getDREF#sim/cockpit2/controls/flap_ratio");
     }
-    // example code - XPlaneToggleFlaps [TODO: press button]
-    if (currentMillis - previousMillisToggleFlaps >= intervalToggleFlaps) {
-      previousMillisToggleFlaps = currentMillis;
+    // example code - XPlaneToggleFlaps
+    if (digitalRead(BTN_PIN) == HIGH && currentFlapRatio != -1) {
       if(currentFlapRatio > 0){
         Serial.println("sendDREF#sim/cockpit2/controls/flap_ratio#0");
-      }else{
+      }else if(currentFlapRatio < 1){
         Serial.println("sendDREF#sim/cockpit2/controls/flap_ratio#1");
       }
+      currentFlapRatio = -1; // waiting for new value
     }
 }
 
@@ -41,9 +41,9 @@ void XPlaneReceiverDREF(String receivedDREF, double receivedValue) {
   Serial.println("receivedDREF: " + receivedDREF);
   Serial.println("receivedValue: " + String(receivedValue));
 
-  // example code - event XPlaneLedFlaps
+  // example code - update XPlaneLedFlaps
   if(receivedDREF == "sim/cockpit2/controls/flap_ratio"){
-    currentFlapRatio = receivedValue; // global
+    currentFlapRatio = receivedValue; // update currentFlapRatio
     if(currentFlapRatio > 0){
       // LED ON
       digitalWrite(LED_PIN_FLAPS, HIGH);

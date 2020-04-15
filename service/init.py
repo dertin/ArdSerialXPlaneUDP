@@ -64,7 +64,6 @@ def handle_xplane(input_data, serial_arduino):
              dref = arrOperationXplane[1].strip()
              status_dref = client_xplane.getDREF(dref)
              print("getDREF:", dref, status_dref)
-             #toArduinoSerial = '<sim/cockpit2/controls/flap_ratio#'+str(status_dref[0])+'>'
              toArduinoSerial = '<'+dref+'#'+str(status_dref[0])+'>'
              print (toArduinoSerial.encode())
              serial_arduino.write(toArduinoSerial.encode())
@@ -100,12 +99,11 @@ def serial_arduino():
 
 def verify_udp_xplane():
     global client_xplane
-    # Verify connection
     try:
         client_xplane.getDREF("sim/test/test_float")
     except:
         print ("Error connection to X-Plane.")
-        sys.exit(2)
+        init_XPlane() # loop - connection to X-Plane
 
 def init_XPlane():
     global client_xplane
@@ -113,7 +111,6 @@ def init_XPlane():
         client_xplane = xpc.XPlaneConnect(timeout = 1000)
     except:
         print ("Error establishing connection to X-Plane.")
-        sys.exit(2)
     verify_udp_xplane()
     sleep(1)
 
