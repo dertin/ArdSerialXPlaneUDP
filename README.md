@@ -12,6 +12,8 @@ It allows to connect arduino with the x-plane through serial communication and t
 
 Arduino hardware and X-Plane are connected.
 
+[![Alt text](https://img.youtube.com/vi/1boIcYFqCek/0.jpg)](https://www.youtube.com/watch?v=1boIcYFqCek)
+
 #### Notices
 
 [**XPlaneConnect**](https://github.com/nasa/XPlaneConnect/blob/master/license.pdf)
